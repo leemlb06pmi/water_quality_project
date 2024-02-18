@@ -1,7 +1,9 @@
 class Record:
     selected_keys = ['OrganizationFormalName','ActivityMediaSubdivisionName','ActivityStartDate','ActivityConductingOrganizationText',
                      'MonitoringLocationIdentifier','CharacteristicName','ResultSampleFractionText','ResultMeasureValue',
-                     'ResultMeasure/MeasureUnitCode',]
+                     'ResultMeasure/MeasureUnitCode']
     def __init__(self,attrs,keys):
-        for keys in self.selected_keys:
-            self.__dict__=dict(zip(keys,attrs))
+        self.__dict__={k:v for k,v in self.build_dict(keys,attrs).items() if k in self.selected_keys}
+    
+    def build_dict(self,keys,attrs):
+        return dict(zip(keys,attrs))
