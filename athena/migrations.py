@@ -15,11 +15,10 @@ def crawl_dataset(location):
     [city,state]=location.split(',')
     state = state.lstrip().upper()
     res = wr.s3.store_parquet_metadata(
-        #path=f'{S3_PATH}Nashville*.parquet',
-        path = 's3://water-reports/Nashville*.parquet',
+        path = f'{S3_PATH}{city}*.parquet',
         database=GLUE_DB,
+        #dataset=True, #if the data if being broken into partitions/folders
         table=f'{city}-{state}',
-        dataset=True,
         mode="overwrite")
     
     
